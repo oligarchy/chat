@@ -1,10 +1,12 @@
-{
-	"name" : "nodejs and socket.io chat example",
-	"version" : "0.0.1",
-	"description" : "testing the stuff out",
-	"main" : "app.js",
-	"dependencies" : {
-		"express" : "3.x.x",
-		"socket.io" : "1.x.x"
-	}
-}
+var socket = require('socket.io'),
+	express = require('express'),
+	ejs = require('ejs')
+,	app = express();
+
+var server = app.listen(1234, function() {
+	console.log("Listening on port %d", server.address().port)
+});
+
+app.get('/', function(req, res) {
+	res.send("Welcome");
+});
