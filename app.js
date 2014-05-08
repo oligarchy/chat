@@ -1,12 +1,25 @@
-var socket = require('socket.io'),
-	express = require('express'),
+var express = require('express'),
 	jade = require('jade')
 ,	app = express();
 
-var server = app.listen(1234, function() {
-	console.log("Listening on port %d", server.address().port)
-});
+app.use(express.static(__dirname + '/public'));
+
+var io = require('socket.io').listen(app.listen(1234));
 
 app.get('/', function(req, res) {
 	res.send("Welcome");
+});
+
+app.set('views', __dirname + '/tpl');
+app.set('view engine', "jade");
+app.engine('jade', require('jade').__express);
+app.get("/", function(req, res){
+    res.render("page");
+});
+
+io.sockets.on('connection', function (socket) {
+    socket.emit('message', { message: 'welcome to the chat' });
+    socket.on('send', function (data) {
+        io.sockets.emit('message', data);
+    });
 });
