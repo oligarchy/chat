@@ -27,6 +27,8 @@ window.onload = function () {
         } else {
             var text = field.value;
             socket.emit('send', { message: text, username: name.value });
+            field.value = '';
+            field.focus();
         }
     };
  
