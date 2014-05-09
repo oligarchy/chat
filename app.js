@@ -6,10 +6,6 @@ app.use(express.static(__dirname + '/public'));
 
 var io = require('socket.io').listen(app.listen(1234));
 
-app.get('/', function(req, res) {
-	res.send("Welcome");
-});
-
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
 app.engine('jade', require('jade').__express);
